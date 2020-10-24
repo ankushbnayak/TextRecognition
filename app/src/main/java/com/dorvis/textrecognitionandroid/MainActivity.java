@@ -10,6 +10,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     SurfaceView mCameraView;
     TextView mTextView;
     CameraSource mCameraSource;
+   // Button button;
 
     private static final String TAG = "MainActivity";
     private static final int requestPermissionID = 101;
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Create the TextRecognizer
         final TextRecognizer textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
-
+       // button=findViewById(R.id.button_click);
         if (!textRecognizer.isOperational()) {
             Log.w(TAG, "Detector dependencies not loaded yet");
         } else {
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     .setAutoFocusEnabled(true)
                     .setRequestedFps(2.0f)
                     .build();
+
 
             /**
              * Add call back to SurfaceView and check if camera permission is granted.
@@ -108,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            //Set the TextRecognizer's Processor.
+
+            //Set the TextRecognizer's Processor
             textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
                 @Override
                 public void release() {
@@ -118,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
                  * Detect all the text from camera using TextBlock and the values into a stringBuilder
                  * which will then be set to the textView.
                  * */
+
                 @Override
                 public void receiveDetections(Detector.Detections<TextBlock> detections) {
                     final SparseArray<TextBlock> items = detections.getDetectedItems();
@@ -137,7 +143,8 @@ public class MainActivity extends AppCompatActivity {
                         });
                     }
                 }
-            });
-        }
+            });      }
+
+
     }
 }
